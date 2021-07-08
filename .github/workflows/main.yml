@@ -4,27 +4,19 @@ on:
     branches:
       - master
 jobs:
-  Deploy:
-    name: 🚀 Deploy to GitHub pages
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x]
+  build-and-deploy:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout 🛎️
+          uses: actions/checkout@v2.3.1
 
-    steps:
-      - name: Git Checkout
-        uses: actions/checkout@v2
+        - name: Install and Build 🔧 # This example project is built using npm and outputs the result to the 'build' folder. Replace with the commands required to build your project, or remove this step entirely if your site is pre-built.
+          run: |
+            yarn install
+            yarn build
 
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Run Yarn
-        run: yarn
-      
-      - name: Run Build
-        run: yarn build
-        
-      - name: Run Deploy
-        run: yarn deploy
+        - name: Deploy 🚀
+          uses: JamesIves/github-pages-deploy-action@4.1.4
+          with:
+            branch: gh-pages # The branch the action should deploy to.
+            folder: build # The folder the action should deploy.
