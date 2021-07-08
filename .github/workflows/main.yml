@@ -1,0 +1,33 @@
+name: GH Pages
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+jobs:
+  Deploy:
+    name: 🚀 Deploy to GitHub pages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Run Yarn
+        run: yarn
+      
+      - name: Run Build
+        run: yarn build
+        
+      - name: Run Deploy
+        run: yarn deploy
