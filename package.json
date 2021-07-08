@@ -1,6 +1,7 @@
 {
   "name": "charts",
   "version": "1.0.0",
+  "homepage": "https://rjames1295.github.io/charts",
   "private": true,
   "dependencies": {
     "date-fns": "^2.22.1",
@@ -15,7 +16,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/* --ext .js --ext .ts --ext .tsx"
+    "lint": "eslint src/* --ext .js --ext .ts --ext .tsx",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
